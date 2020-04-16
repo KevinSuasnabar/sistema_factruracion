@@ -15,12 +15,25 @@ public class Factura {
 
     private Double monto;
 
-    public Factura(String codigoGenerado, Double monto) {
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinColumn(name = "cliente_id") // para no generar una tercera tabla indicamos el id que ira en la tabla facturas
+    private Cliente cliente;
+
+    public Factura(String codigoGenerado, Double monto,Cliente cliente) {
         this.codigoGenerado = codigoGenerado;
         this.monto = monto;
+        this.cliente=cliente;
     }
 
     public Factura(){}
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
     public Long getId() {
         return id;

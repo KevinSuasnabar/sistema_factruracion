@@ -18,8 +18,7 @@ public class Cliente {
 
     private String nombres;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name = "cliente_id") // para no generar una tercera tabla indicamos el id que ira en la tabla facturas
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "cliente")
     private List<Factura> facturas;
 
     @Embedded
@@ -28,11 +27,16 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(Long id, List<String> contacto, String nombres, List<Factura> facturas, Direccion direccion) {
-        this.id = id;
+    public Cliente(List<String> contacto, String nombres, List<Factura> facturas, Direccion direccion) {
         this.contacto = contacto;
         this.nombres = nombres;
         this.facturas = facturas;
+        this.direccion = direccion;
+    }
+
+    public Cliente(List<String> contacto, String nombres,Direccion direccion) {
+        this.contacto = contacto;
+        this.nombres = nombres;
         this.direccion = direccion;
     }
 
