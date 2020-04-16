@@ -1,5 +1,6 @@
-package com.demo.pdf.example.PDF.Demo.bussiness.services;
+package com.demo.pdf.example.PDF.Demo.bussiness.builder;
 
+import com.demo.pdf.example.PDF.Demo.bussiness.exceptions.PdfException;
 import com.itextpdf.barcodes.Barcode128;
 import com.itextpdf.barcodes.BarcodeQRCode;
 import com.itextpdf.io.image.ImageDataFactory;
@@ -37,7 +38,7 @@ public class PdfBuilder {
     private static final int THERMAL_MARGIN_LEFT = 10;//10
     private static final int THERMAL_MARGIN_RIGHT = 14;//14
     private static final int THERMAL_MARGIN_TOP_BOTTOM = 12;
-    private static final float THERMAL_PAGE_WIDTH = 227;//tamanio hoja
+    private static final float THERMAL_PAGE_WIDTH = 600;//tamanio hoja
     private static final float THERMAL_PAGE_HEIGHT = 800;//tamanio hoja
 
     private String filename;

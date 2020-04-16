@@ -1,4 +1,4 @@
-package com.demo.pdf.example.PDF.Demo.bussiness.services;
+package com.demo.pdf.example.PDF.Demo.bussiness.exceptions;
 
 public class PdfException extends RuntimeException{
 

@@ -28,4 +28,12 @@ public class Direccion {
     public String getCalle() {
         return calle;
     }
+
+    @Override
+    public String toString() {
+        return "Direccion{" +
+                "referencias=" + referencias +
+                ", calle='" + calle + '\'' +
+                '}';
+    }
 }

@@ -1,6 +1,11 @@
 package com.demo.pdf.example.PDF.Demo.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "facturas")
@@ -13,20 +18,45 @@ public class Factura {
     @Column(name = "codigo_generado")
     private String codigoGenerado;
 
-    private Double monto;
+    private String descripcion;
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id") // para no generar una tercera tabla indicamos el id que ira en la tabla facturas
     private Cliente cliente;
 
-    public Factura(String codigoGenerado, Double monto,Cliente cliente) {
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "factura")
+    private List<FacturaLine> items;
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "create_at")
+    private Date createAt;
+
+    public Factura(Long id, String codigoGenerado, String descripcion, Cliente cliente, List<FacturaLine> items, Date createAt) {
+        this.id = id;
         this.codigoGenerado = codigoGenerado;
-        this.monto = monto;
-        this.cliente=cliente;
+        this.descripcion = descripcion;
+        this.cliente = cliente;
+        this.items = items;
+        this.createAt = createAt;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createAt = new Date();
     }
 
     public Factura(){}
 
+    @JsonIgnoreProperties({"factura","hibernateLazyInitializer","handler"})
+    public List<FacturaLine> getItems() {
+        return items;
+    }
+
+    public void setItems(List<FacturaLine> items) {
+        this.items = items;
+    }
+
+    @JsonIgnoreProperties({"facturas","hibernateLazyInitializer","handler"})
     public Cliente getCliente() {
         return cliente;
     }
@@ -51,20 +81,24 @@ public class Factura {
         this.codigoGenerado = codigoGenerado;
     }
 
-    public Double getMonto() {
-        return monto;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setMonto(Double monto) {
-        this.monto = monto;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    @Override
-    public String toString() {
-        return "Factura{" +
-                "id=" + id +
-                ", codigoGenerado='" + codigoGenerado + '\'' +
-                ", monto=" + monto +
-                '}';
+
+
+    public Double getTotal() {
+        Double total = 0.0;
+
+        for (int i = 0; i < items.size(); i++) {
+            total += items.get(i).getTotalPrice();
+        }
+
+        return total;
     }
+
 }
