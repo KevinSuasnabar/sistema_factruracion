@@ -28,4 +28,9 @@ public class FacturaServiceImpl implements IFacturaService{
     public Factura findOneFactura(Long id) {
         return facturaRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Factura updateFactura(Factura factura) {
+        return facturaRepository.save(factura);
+    }
 }

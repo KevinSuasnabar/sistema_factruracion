@@ -12,4 +12,6 @@ public interface IFacturaService {
     public Factura createInvoice(Factura factura);
 
     public Factura findOneFactura(Long id);
+
+    public Factura updateFactura(Factura factura);
 }
