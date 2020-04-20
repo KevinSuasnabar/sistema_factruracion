@@ -2,14 +2,14 @@ package com.demo.pdf.example.PDF.Demo.controllers;
 
 import com.demo.pdf.example.PDF.Demo.bussiness.services.PdfServices;
 import com.demo.pdf.example.PDF.Demo.models.entity.Cliente;
+import com.demo.pdf.example.PDF.Demo.models.entity.Factura;
 import com.demo.pdf.example.PDF.Demo.models.services.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/v0")
 public class PdfController {
@@ -21,15 +21,12 @@ public class PdfController {
     private IClienteService clienteService;
 
 
-    public static final String PDFS = "/spring/pdfs/a1";
+    public static final String PDFS = "/spring/pdfs/boleta";
 
-    @GetMapping(produces = {"application/pdf", "application/json"})
-    public byte[] pdf() {
+    @PostMapping(produces = {"application/pdf", "application/json"})
+    public byte[] pdf(@RequestBody Factura factura) {
 
-        List<Cliente> clientes=clienteService.getAllCustomers();
+        return  pdfServices.generateVoucher(PdfController.PDFS,factura);
 
-    byte[] a=pdfServices.generateVoucher(PdfController.PDFS,clientes);
-
-        return a;
     }
 }

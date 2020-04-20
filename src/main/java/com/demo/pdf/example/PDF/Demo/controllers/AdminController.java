@@ -2,11 +2,9 @@ package com.demo.pdf.example.PDF.Demo.controllers;
 
 import com.demo.pdf.example.PDF.Demo.models.dbseeders.DatabaseSeedersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = { "*" })
 @RestController
 @RequestMapping("/api/v0")
 public class AdminController {

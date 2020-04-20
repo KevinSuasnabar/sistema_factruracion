@@ -38,8 +38,8 @@ public class PdfBuilder {
     private static final int THERMAL_MARGIN_LEFT = 10;//10
     private static final int THERMAL_MARGIN_RIGHT = 14;//14
     private static final int THERMAL_MARGIN_TOP_BOTTOM = 12;
-    private static final float THERMAL_PAGE_WIDTH = 600;//tamanio hoja
-    private static final float THERMAL_PAGE_HEIGHT = 800;//tamanio hoja
+    private static final float THERMAL_PAGE_WIDTH = 250;//tamanio hoja
+    private static final float THERMAL_PAGE_HEIGHT = 600;//tamanio hoja
 
     private String filename;
 
@@ -117,7 +117,7 @@ public class PdfBuilder {
 
     public PdfBuilder image(String fileName) {
         try {
-            Image img = new Image(ImageDataFactory.create(new ClassPathResource("img/" + fileName).getURL()));
+            Image img = new Image(ImageDataFactory.create(new ClassPathResource("static/img/" + fileName).getURL()));
             img.setWidth(IMAGE_WIDTH);
             img.setHorizontalAlignment(HorizontalAlignment.CENTER);
             this.document.add(img);
